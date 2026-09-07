@@ -4,7 +4,7 @@ Status as of 2026-09-07. dotMD itself is a feature-complete prototype; everythin
 missing between "works on my Mac" and "a stranger can pay for it and trust it."
 
 ## Legal / compliance
-- [ ] Pick a license (proprietary/EULA for a paid app — don't ship unlicensed)
+- [x] Pick a license — done, `LICENSE` (proprietary, matching Switchboard/TrafficControl). Still need the separate end-user EULA for a distributed binary.
 - [ ] Write a short privacy policy (even "this app makes no network calls" is enough — required by
       Stripe/Lemon Squeezy/Gumroad checkout, and by users)
 - [ ] Basic Terms of Sale / refund policy

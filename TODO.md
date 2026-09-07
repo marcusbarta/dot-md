@@ -12,4 +12,4 @@
 - [x] Investigate the recurring false-positive "Cannot find X in scope" / "Cannot infer contextual base" diagnostics that show up against MarkdownRendering.swift/RichTextView.swift/ContentView.swift right after edits — a real `swift build` passes clean every time, so these are stale-index noise from the editor's background Swift language server rather than actual compile errors; find a way to stop them from surfacing (e.g. triggering a reindex right after a build, or another fix for whatever's causing the index to lag).
 - [x] Add a top-level README.md (what dotMD is, screenshots, how to build/run) — TrafficControlRepo has one, dotMD doesn't.
 - [x] Add a CLAUDE.md documenting build/run steps and architecture for Claude Code, matching the level of detail in SwitchboardRepo/CLAUDE.md — dotMD doesn't have one.
-- [ ] Add a LICENSE file — still open per MONETIZATION.md's legal/compliance checklist ("pick a license").
+- [x] Add a LICENSE file — still open per MONETIZATION.md's legal/compliance checklist ("pick a license").
