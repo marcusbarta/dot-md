@@ -8,7 +8,7 @@ private struct FileTreeScanKey: Equatable {
 
 struct ContentView: View {
     @StateObject private var document = MarkdownDocument()
-    @State private var showSidebar = true
+    @State private var showSidebar = false
     // Owned here (not inside FileTreeSidebar) so it survives the sidebar
     // being toggled closed — FileTreeSidebar is removed from the hierarchy
     // entirely when hidden, which would otherwise throw this away and force
