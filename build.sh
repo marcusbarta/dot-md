@@ -23,16 +23,13 @@ chmod +x "$APP/Contents/MacOS/dotMD"
 # keeps the signed bundle clean.
 xattr -cr "$APP"
 
-# An ad-hoc signature with no explicit requirement defaults to a
-# "designated requirement" of `cdhash H"<exact hash of this binary>"` — so
-# even with a fixed --identifier, TCC's grant is really keyed to this one
-# build's hash. Every rebuild produces a different hash (Swift builds
-# aren't byte-reproducible), so the very next rebuild silently invalidates
-# the grant and the Desktop/Documents/Downloads prompt comes back. Passing
-# an explicit requirement that checks only the identifier (no cdhash, no
-# anchor) makes every build satisfy the same requirement, so a grant made
-# against one build keeps matching after later rebuilds.
-codesign --force --deep --sign - --identifier com.marcusbarta.dotmd \
-    -r "=designated => identifier \"com.marcusbarta.dotmd\"" "$APP"
+# Sign with a real (stable) certificate identity, not ad-hoc. Ad-hoc
+# signatures (even with a hand-written identifier-only requirement) never
+# gave TCC a durable thing to pin the Desktop/Documents/Downloads grant to,
+# so the prompt came back on every launch. A cert-signed app's designated
+# requirement is identifier + certificate leaf, identical across rebuilds,
+# so one grant sticks forever.
+IDENTITY="Apple Development: marcusbarta@icloud.com (SBMBXDN76G)"
+codesign --force --deep --sign "$IDENTITY" --identifier com.marcusbarta.dotmd "$APP"
 
 echo "Built $APP"
