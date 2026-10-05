@@ -13,17 +13,6 @@ extension FocusedValues {
     }
 }
 
-private struct SidebarVisibleFocusedKey: FocusedValueKey {
-    typealias Value = Binding<Bool>
-}
-
-extension FocusedValues {
-    var sidebarVisible: Binding<Bool>? {
-        get { self[SidebarVisibleFocusedKey.self] }
-        set { self[SidebarVisibleFocusedKey.self] = newValue }
-    }
-}
-
 /// Bridges a SwiftUI view to its hosting NSWindow, since plain WindowGroup
 /// gives no direct way to observe which NSWindow a given scene resolved to.
 struct WindowAccessor: NSViewRepresentable {
@@ -120,7 +109,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
 struct DotMDCommands: Commands {
     @FocusedValue(\.markdownDocument) private var document
-    @FocusedBinding(\.sidebarVisible) private var sidebarVisible: Bool?
     @Environment(\.openWindow) private var openWindow
 
     var body: some Commands {
@@ -155,13 +143,6 @@ struct DotMDCommands: Commands {
                 NSApp.sendAction(Selector(("print:")), to: nil, from: nil)
             }
             .keyboardShortcut("p", modifiers: .command)
-        }
-        CommandGroup(after: .sidebar) {
-            Button(sidebarVisible == true ? "Hide File Sidebar" : "Show File Sidebar") {
-                sidebarVisible?.toggle()
-            }
-            .keyboardShortcut("e", modifiers: [.command, .shift])
-            .disabled(sidebarVisible == nil)
         }
         CommandGroup(after: .textEditing) {
             Divider()

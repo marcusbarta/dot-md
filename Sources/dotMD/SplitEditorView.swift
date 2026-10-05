@@ -30,8 +30,8 @@ struct SplitEditorView: NSViewRepresentable {
         // NSHostingView doesn't automatically re-render when state outside
         // it changes — its rootView has to be reassigned explicitly, or
         // edits made in one pane never show up in the other. Skipping this
-        // when the text hasn't actually changed (e.g. a sidebar-width or
-        // other unrelated re-render) avoids needless rebuild work without
+        // when the text hasn't actually changed (e.g. an
+        // unrelated re-render) avoids needless rebuild work without
         // relying on "which pane caused it" — which broke the initial file
         // load (both panes start empty and both genuinely need the update).
         guard context.coordinator.lastText != text else { return }

@@ -15,9 +15,6 @@ either pane keeps the other in sync.
   the rendered pane.
 - Structural table editing (add/remove rows and columns) directly in the
   rendered pane, not just editing existing cells' text.
-- A collapsible file-tree sidebar (⌘⇧E), rooted one level above the open
-  file's directory, so sibling files/folders are browsable without leaving
-  the editor.
 - Watches the open file for external changes (another editor, `git checkout`,
   a sync tool) and prompts to reload or keep your in-progress edits.
 
@@ -64,11 +61,6 @@ There is no test suite.
   into the rich pane. `restoreTrailingWhitespace` re-appends any trailing
   spaces CommonMark's parse strips from a paragraph's end, so a debounced
   re-render mid-sentence doesn't silently eat a space the user just typed.
-- **File-tree sidebar** (`FileTreeSidebar.swift`): `FileTree.build` walks the
-  directory one level above the open file synchronously off the main thread;
-  `ContentView` caches the resulting `[FileNode]` across sidebar
-  toggles/re-scans on file identity change (open, rename, move) via
-  `.task(id:)`.
 - **File watching** (`MarkdownDocument.swift`): a `DispatchSourceFileSystemObject`
   on the open file's descriptor, debounced ~150ms (many editors save via
   write-temp-then-rename, which fires a burst of delete/create events), with

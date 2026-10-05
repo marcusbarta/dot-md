@@ -88,16 +88,6 @@ except when the edit changed the block's *kind* (e.g. `#` → `##`), which
 still needs to flow back through, since only re-rendering picks up a
 structural change within the same pane.
 
-**File-tree sidebar** (`FileTreeSidebar.swift`): `FileTree.build` walks the
-directory one level above the open file's own directory (so siblings are
-visible), synchronously off the main thread. `ContentView` owns and caches
-the resulting `[FileNode]` outside the sidebar view itself, so toggling the
-sidebar closed doesn't throw away the scan; `.task(id: FileTreeScanKey(...))`
-re-scans (and cancels any in-flight scan) on file open/rename/move, not just
-on root-directory change. The sidebar's width snaps to one of two measured
-extremes (shortest/longest visible row) via a drag handle, using real
-rendered-row widths (`PreferenceKey`) rather than estimated constants.
-
 **File watching** (`MarkdownDocument.swift`): a
 `DispatchSourceFileSystemObject` on the open file's descriptor
 (`O_EVTONLY`), debounced ~150ms — an atomic external save shows up as a
